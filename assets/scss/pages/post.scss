@@ -239,3 +239,10 @@ table {
     border: 1px double $greyTableBorder;
   }
 }
+
+figcaption {
+  text-align: center;
+  font-size: 0.95rem;
+  margin-top: 10px;
+  color: gray;
+}
