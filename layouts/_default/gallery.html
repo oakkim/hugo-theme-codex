@@ -6,28 +6,22 @@
     
 {{ $dateFormat := .Site.Params.dateFormat | default "Jan 2 2006" }}    
 
-<div class="post-list__container">
-  <ul class="post-list">
-    {{ range $post := .Pages }}
-    <li class="post">
-      <div class="thumbnails">
-        {{ range $i, $sequence :=  (seq ( cond (le 5 $post.Params.image_count ) 5 $post.Params.image_count )) }}
-        <a href="{{$post.RelPermalink}}" class="thumbnail">
-          <img src="./{{ $post.Slug }}/images/{{ $sequence }}.jpg"/>
-        </a>
-        {{ end }}
+<div id="columns" class="post-list__container">
+  {{ range $i, $sequence :=  (seq ( .Params.imagecount )) }}
+    <div class="item">
+      <img class="thumbnail" src="./images/{{ $sequence }}.jpg"/>
+      <div class="details">
+        <img src="./images/{{ $sequence }}.jpg"/>
       </div>
-      <div class="post__header">
-        <time class="post__date" datetime="{{ .Date }}"
-          >{{ .Date.Format $dateFormat }}</time>
-        <h2 class="post__title">
-          <a href="{{$post.RelPermalink}}">{{ $post.Title }}</a>
-        </h2>
-        {{ partial "tags.html" .}}
-      </div>
-    </li>
-    {{ end }}
-  </ul>
+    </div>
+  {{ end }}
 </div>
 
+<script>
+  document.querySelectorAll("#columns > .item").forEach(img => {
+    img.addEventListener("click", (e) => {
+      img.classList.toggle('focused');
+    })
+  });
+</script>
 {{ end }}
